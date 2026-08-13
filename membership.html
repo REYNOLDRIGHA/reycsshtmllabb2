@@ -25,57 +25,58 @@
         <h2>Membership Registration</h2>
         <p style="margin-bottom: 20px; color: #666;">Fill out the form below to start your premium fitness membership.</p>
         
-        <form class="contact-form">
+        <!-- Updated action and method attributes -->
+        <form class="contact-form" action="insert.php" method="POST">
             <div class="form-group">
-                <label>Full Name:</label>
-                <input type="text" required>
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" required>
             </div>
 
             <div class="form-group">
-                <label>Email:</label>
-                <input type="email" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
             </div>
 
             <div class="form-group">
-                <label>Phone Number:</label>
-                <input type="tel">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone">
             </div>
 
             <div class="form-group">
-                <label>Age:</label>
-                <input type="number">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age">
             </div>
 
             <div class="form-group">
                 <label>Gender:</label>
                 <div class="inline-options">
-                    <label class="inline-label"><input type="radio" name="gender"> Male</label>
-                    <label class="inline-label"><input type="radio" name="gender"> Female</label>
+                    <label class="inline-label"><input type="radio" name="gender" value="Male"> Male</label>
+                    <label class="inline-label"><input type="radio" name="gender" value="Female"> Female</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Membership Type:</label>
-                <select>
-                    <option>Monthly</option>
-                    <option>Quarterly</option>
-                    <option>Annual</option>
+                <label for="membership_type">Membership Type:</label>
+                <select id="membership_type" name="membership_type">
+                    <option value="Monthly">Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                    <option value="Annual">Annual</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Select Programs:</label>
                 <div class="checkbox-options">
-                    <label class="inline-label"><input type="checkbox"> Weight Training</label>
-                    <label class="inline-label"><input type="checkbox"> Yoga</label>
-                    <label class="inline-label"><input type="checkbox"> Zumba</label>
-                    <label class="inline-label"><input type="checkbox"> Cardio Fitness</label>
+                    <label class="inline-label"><input type="checkbox" name="programs[]" value="Weight Training"> Weight Training</label>
+                    <label class="inline-label"><input type="checkbox" name="programs[]" value="Yoga"> Yoga</label>
+                    <label class="inline-label"><input type="checkbox" name="programs[]" value="Zumba"> Zumba</label>
+                    <label class="inline-label"><input type="checkbox" name="programs[]" value="Cardio Fitness"> Cardio Fitness</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Fitness Goals:</label>
-                <textarea rows="5"></textarea>
+                <label for="fitness_goals">Fitness Goals:</label>
+                <textarea id="fitness_goals" name="fitness_goals" rows="5"></textarea>
             </div>
 
             <button type="submit" class="btn-submit">Register Now</button>

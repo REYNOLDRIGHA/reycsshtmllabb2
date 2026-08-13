@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. FORM VALIDATION & CONFIRMATION 
+    // 2. FORM VALIDATION & CONFIRMATION
     //  Forms on contact.html & membership.html
-    // Validates that required fields are filled out before submitting.
+    // Validates required fields, shows success feedback, saves to PHP, & redirects.
     // ==========================================================================
     const forms = document.querySelectorAll(".contact-form");
 
@@ -82,18 +82,38 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (missingFields.length > 0) {
-                event.preventDefault(); // Stop submission if fields are blank
+                event.preventDefault(); // Stop submission if required fields are blank
                 feedbackMessage.textContent = `⚠️ Please complete the required field(s): ${missingFields.join(", ")}.`;
                 feedbackMessage.style.color = "#ff4747";
             } else {
-                event.preventDefault(); // Prevent reload for demo submission
+                event.preventDefault(); // Prevent standard page reload/navigation
                 
                 const nameInput = form.querySelector("input[type='text']");
                 const userName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Member";
 
-                feedbackMessage.textContent = `✅ Thank you, ${userName}! Your submission was received successfully.`;
+                // Show success message directly on page
+                feedbackMessage.innerHTML = `
+                    ✅ Thank you, ${userName}! Your submission was received successfully.<br>
+                    <span style="color: #666; font-size: 13px;">Saving to database...</span>
+                `;
                 feedbackMessage.style.color = "#2e7d32";
-                form.reset();
+
+                // Post data asynchronously to insert.php and redirect to display.php
+                const formData = new FormData(form);
+                fetch("insert.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(() => {
+                    setTimeout(() => {
+                        window.location.href = "display.php";
+                    }, 1200);
+                })
+                .catch((err) => {
+                    console.error("Error submitting form:", err);
+                    feedbackMessage.textContent = "❌ Submission failed. Please check your XAMPP connection.";
+                    feedbackMessage.style.color = "#ff4747";
+                });
             }
         });
     });
